@@ -1,11 +1,14 @@
 package calculotochos;
 
+import calculotochos.data.Perfil;
+
 /**
  *
  * @author MAX
  */
 public class MainForm extends javax.swing.JFrame {
 
+    public Perfil perfil;
     private int tochoDiametro;
     private int tochoLargo;
     private int tochoLargoMax;
@@ -13,12 +16,9 @@ public class MainForm extends javax.swing.JFrame {
     private int mesaLargoMax;
     private int contenedorDiametro;
     private int culoteLargo;
-    private double matrizArea;
-    private int matrizSalidas;
-    private int perfilLargoComercial;
     private int mesaLargoMatrizSierra;
     private int scrapEstirador;
-    private int tochoCorte;
+    private int tochoCorte = 0;
     private int tochoEspesorCorte;
 
     /**
@@ -63,14 +63,16 @@ public class MainForm extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jsTochoEspesorCorte = new javax.swing.JSpinner();
         jLabel18 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        btnPerfil = new javax.swing.JButton();
+        jtPerfilID = new javax.swing.JTextField();
+        jtPerfilNombre = new javax.swing.JTextField();
+        jtPerfilArea = new javax.swing.JTextField();
+        jtPerfilSalidas = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jsAreaPerfil = new javax.swing.JSpinner();
         jLabel8 = new javax.swing.JLabel();
-        jsCantidadSalidas = new javax.swing.JSpinner();
         jLabel9 = new javax.swing.JLabel();
-        jsLargoComercial = new javax.swing.JSpinner();
+        jLabel21 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         btnCalcular = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -87,11 +89,13 @@ public class MainForm extends javax.swing.JFrame {
         jlTochosBarra = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jlBarrasSalida = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jlPesoBarra = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Calculo de Corte de Tochos v1.0 by MAX");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propiedades del Tocho", 0, 0, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propiedades del Tocho", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jLabel1.setText("Diametro (mm):");
 
@@ -151,7 +155,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(pbTochoDiametro, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(pbTochoDiametro, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                     .addComponent(jsTochoDiametro, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(pbTochoLargo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jsTochoLargo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -162,7 +166,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(jtLargo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,7 +188,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propiedades de la Planta", 0, 0, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propiedades de la Planta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         jLabel3.setText("Largo maximo del Tocho (mm):");
 
@@ -200,7 +204,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel6.setText("Largo del Culotede Tocho (mm):");
 
-        jsCulote.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(20), null, Integer.valueOf(50), Integer.valueOf(1)));
+        jsCulote.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(15), null, Integer.valueOf(50), Integer.valueOf(1)));
 
         jLabel11.setText("Diametro del Contenedor (mm):");
 
@@ -210,20 +214,13 @@ public class MainForm extends javax.swing.JFrame {
 
         jsDistanciaMatrizSierra.setModel(new javax.swing.SpinnerNumberModel(6750, 6000, 10000, 1));
 
-        jsScrapEstirador.setModel(new javax.swing.SpinnerNumberModel(1500, 800, 3000, 1));
+        jsScrapEstirador.setModel(new javax.swing.SpinnerNumberModel(0, 0, 3000, 1));
 
         jLabel17.setText("Scrap por estirador y corte (mm):");
 
         jsTochoEspesorCorte.setModel(new javax.swing.SpinnerNumberModel(2, 1, 6, 1));
 
         jLabel18.setText("Espesor Corte Tocho (mm):");
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -247,14 +244,10 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jsCulote)
                     .addComponent(jtLargoMaxTocho)
                     .addComponent(jtLargoMinTocho)
-                    .addComponent(jtLargoMaxMesa, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                    .addComponent(jtLargoMaxMesa)
                     .addComponent(jsContenedorDiametro)
                     .addComponent(jsTochoEspesorCorte))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,24 +284,33 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jsTochoEspesorCorte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propiedades de la Matriz", 0, 0, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propiedades de la Matriz", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        jLabel7.setText("Area del Perfil (mm2):");
+        btnPerfil.setText("Buscar");
+        btnPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPerfilActionPerformed(evt);
+            }
+        });
 
-        jsAreaPerfil.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, Double.valueOf(1000.0d), Double.valueOf(1.0d)));
+        jtPerfilID.setEditable(false);
 
-        jLabel8.setText("Cantidad de Salidas:");
+        jtPerfilNombre.setEditable(false);
 
-        jsCantidadSalidas.setModel(new javax.swing.SpinnerNumberModel(1, 1, 6, 1));
+        jtPerfilArea.setEditable(false);
 
-        jLabel9.setText("Largo comercial (mm):");
+        jtPerfilSalidas.setEditable(false);
 
-        jsLargoComercial.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(6050), null, Integer.valueOf(6500), Integer.valueOf(1)));
+        jLabel7.setText("Codigo");
+
+        jLabel8.setText("Nombre");
+
+        jLabel9.setText("Area");
+
+        jLabel21.setText("Salidas");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -316,37 +318,51 @@ public class MainForm extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jsAreaPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jsCantidadSalidas, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jsLargoComercial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnPerfil))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtPerfilID, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtPerfilNombre)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtPerfilArea, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21)
+                            .addComponent(jtPerfilSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jsAreaPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jsLargoComercial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jsCantidadSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jtPerfilID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtPerfilNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtPerfilArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtPerfilSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnPerfil)
+                .addContainerGap())
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Calculos", 0, 0, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Calculos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         btnCalcular.setText("Calcular");
         btnCalcular.addActionListener(new java.awt.event.ActionListener() {
@@ -397,6 +413,12 @@ public class MainForm extends javax.swing.JFrame {
         jlBarrasSalida.setForeground(new java.awt.Color(0, 102, 255));
         jlBarrasSalida.setText("0");
 
+        jLabel22.setText("Peso por Barra (Kg.):");
+
+        jlPesoBarra.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jlPesoBarra.setForeground(new java.awt.Color(0, 102, 255));
+        jlPesoBarra.setText("0");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -419,7 +441,7 @@ public class MainForm extends javax.swing.JFrame {
                             .addComponent(jlTochosBarra)
                             .addComponent(jlLargoTocho)
                             .addComponent(jlSobranteTocho))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel16)
@@ -428,12 +450,14 @@ public class MainForm extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel20)
-                                    .addComponent(jLabel13))
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel22))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlBarrasTocho)
-                                    .addComponent(jlBarrasSalida))))
-                        .addGap(0, 110, Short.MAX_VALUE)))
+                                    .addComponent(jlBarrasSalida)
+                                    .addComponent(jlPesoBarra))))
+                        .addGap(0, 138, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -448,21 +472,29 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jlPerfilPesoXm))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jlBarrasTocho)
                     .addComponent(jLabel19)
-                    .addComponent(jlTochosBarra))
+                    .addComponent(jlTochosBarra)
+                    .addComponent(jlPesoBarra)
+                    .addComponent(jLabel22))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jlSobranteTocho)
-                    .addComponent(jLabel20)
-                    .addComponent(jlBarrasSalida))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jlCulotePeso))
-                .addGap(0, 15, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(jlSobranteTocho))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(jlCulotePeso)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(jlBarrasTocho))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel20)
+                            .addComponent(jlBarrasSalida))))
+                .addGap(0, 70, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -526,49 +558,57 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jtLargoStateChanged1
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
-        getData();
-        double tochoArea;
-        double tochoPesoXmm;
-        double contenedorArea;
-        double culotePeso;
-        double perfilPesoXmm;
-        int barrasMesa;
-        int barraProduccion;
-        
-        //Calculo el peso del Tocho por mm
-        tochoArea = Utils.areaCirculo(tochoDiametro);
-        tochoPesoXmm = tochoArea * Utils.DEN_AL_6063;
-        //Calculo el peso total del Culote
-        contenedorArea = Utils.areaCirculo(contenedorDiametro);
-        culotePeso = (contenedorArea * Utils.DEN_AL_6063) * culoteLargo;
-        //Calculo peso del perfil x mm
-        perfilPesoXmm  = matrizArea * Utils.DEN_AL_6063;
-        // Calculo la cantidad maxima de barras que entran en la mesa mas scrap
-        barrasMesa  = (int) (mesaLargoMax - scrapEstirador) / perfilLargoComercial;
-        barraProduccion = barrasMesa * perfilLargoComercial + scrapEstirador;
-        //Calculando Tocho
-        while ((Utils.calcularPeso(barraProduccion , matrizArea)* matrizSalidas)> (Utils.calcularPeso(tochoLargoMax, tochoArea)- culotePeso))
-        {
-           barrasMesa--;
-           barraProduccion = barrasMesa * perfilLargoComercial + scrapEstirador;
-        }  
-        double pesoBarraProduccion = Utils.calcularPeso(barraProduccion , matrizArea)* matrizSalidas;
-        tochoCorte = (int)((pesoBarraProduccion + culotePeso) /tochoPesoXmm );
-        //Mostrando Resultados
-        jlCulotePeso.setText(Double.toString(Utils.round(culotePeso, 2)));
-        jlPerfilPesoXm.setText(Double.toString(Utils.round((perfilPesoXmm * 1000),2)));
-        jlSobranteTocho.setText(Integer.toString(tochoLargo - (((int)(tochoLargo / tochoCorte))* (tochoCorte + tochoEspesorCorte))));
-        jlLargoTocho.setText(Integer.toString(tochoCorte));
-        jlBarrasTocho.setText(Integer.toString(barrasMesa  * matrizSalidas));
-        jlTochosBarra.setText(Integer.toString((int)(tochoLargo / tochoCorte)));
-        jlBarrasSalida.setText(Integer.toString(barrasMesa));
+        if (perfil != null) {
+            getData();
+            double tochoArea = 0.000;
+            double tochoPesoXmm = 0.000;
+            double contenedorArea = 0.000;
+            double culotePeso = 0.000;
+            int barrasMesa;
+            int barraProduccion;
+
+            //Calculo el peso del Tocho por mm
+            tochoArea = Utils.areaCirculo(tochoDiametro);
+            tochoPesoXmm = tochoArea * Utils.DEN_AL_6063;
+            //Calculo el peso total del Culote
+            contenedorArea = Utils.areaCirculo(contenedorDiametro);
+            culotePeso = (contenedorArea * Utils.DEN_AL_6063) * culoteLargo;
+            // Calculo la cantidad maxima de barras que entran en la mesa mas scrap
+            barrasMesa = (int) (mesaLargoMax - scrapEstirador) / perfil.getLargoComercial();
+            barraProduccion = barrasMesa * perfil.getLargoComercial() + scrapEstirador;
+            //Calculando Tocho
+            while ((Utils.calcularPeso(barraProduccion, perfil.getArea()) * perfil.getSalidas()) > (Utils.calcularPeso(tochoLargoMax, tochoArea) - culotePeso)) {
+                barrasMesa--;
+                barraProduccion = barrasMesa * perfil.getLargoComercial() + scrapEstirador;
+            }
+            double pesoBarraProduccion = Utils.calcularPeso(barraProduccion, perfil.getArea()) * perfil.getSalidas();
+            tochoCorte = (int) ((pesoBarraProduccion + culotePeso) / tochoPesoXmm);
+            //Mostrando Resultados
+            jlCulotePeso.setText(Utils.round(culotePeso,3));
+            jlPerfilPesoXm.setText(Utils.round(perfil.getPeso(1000),3));
+            jlSobranteTocho.setText(Integer.toString(tochoLargo - (((int) (tochoLargo / tochoCorte)) * (tochoCorte + tochoEspesorCorte))));
+            jlLargoTocho.setText(Integer.toString(tochoCorte));
+            jlBarrasTocho.setText(Integer.toString(barrasMesa * perfil.getSalidas()));
+            jlTochosBarra.setText(Integer.toString((int) (tochoLargo / tochoCorte)));
+            jlBarrasSalida.setText(Integer.toString(barrasMesa));
+            jlPesoBarra.setText(Utils.round(perfil.getPeso(perfil.getLargoComercial()) / 1000, 3));
+        }
 
     }//GEN-LAST:event_btnCalcularActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       PerfilesABM ventana = new PerfilesABM();
-       ventana.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
+        PerfilesABM ventana = new PerfilesABM(this);
+        ventana.setVisible(true);
+        setData();
+
+    }//GEN-LAST:event_btnPerfilActionPerformed
+
+    private void setData() {
+        jtPerfilID.setText(perfil.getId());
+        jtPerfilNombre.setText(perfil.getNombre());
+        jtPerfilArea.setText(Double.toString(perfil.getArea()));
+        jtPerfilSalidas.setText(Integer.toString(perfil.getSalidas()));
+    }
 
     private void getData() {
         tochoDiametro = (int) jtDiametro.getValue();
@@ -577,15 +617,11 @@ public class MainForm extends javax.swing.JFrame {
         tochoLargoMin = (int) jtLargoMinTocho.getValue();
         mesaLargoMax = (int) jtLargoMaxMesa.getValue();
         mesaLargoMatrizSierra = (int) jsDistanciaMatrizSierra.getValue();
-        matrizArea = (double) jsAreaPerfil.getValue();
-        matrizSalidas = (int) jsCantidadSalidas.getValue();
-        perfilLargoComercial = (int) jsLargoComercial.getValue();
         contenedorDiametro = (int) jsContenedorDiametro.getValue();
         culoteLargo = (int) jsCulote.getValue();
         scrapEstirador = (int) jsScrapEstirador.getValue();
         tochoEspesorCorte = (int) jsTochoEspesorCorte.getValue();
     }
-    
 
     /**
      * @param args the command line arguments
@@ -624,7 +660,7 @@ public class MainForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcular;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnPerfil;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -638,6 +674,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -654,14 +692,12 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jlCulotePeso;
     private javax.swing.JLabel jlLargoTocho;
     private javax.swing.JLabel jlPerfilPesoXm;
+    private javax.swing.JLabel jlPesoBarra;
     private javax.swing.JLabel jlSobranteTocho;
     private javax.swing.JLabel jlTochosBarra;
-    private javax.swing.JSpinner jsAreaPerfil;
-    private javax.swing.JSpinner jsCantidadSalidas;
     private javax.swing.JSpinner jsContenedorDiametro;
     private javax.swing.JSpinner jsCulote;
     private javax.swing.JSpinner jsDistanciaMatrizSierra;
-    private javax.swing.JSpinner jsLargoComercial;
     private javax.swing.JSpinner jsScrapEstirador;
     private javax.swing.JSlider jsTochoDiametro;
     private javax.swing.JSpinner jsTochoEspesorCorte;
@@ -671,6 +707,10 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JSpinner jtLargoMaxMesa;
     private javax.swing.JSpinner jtLargoMaxTocho;
     private javax.swing.JSpinner jtLargoMinTocho;
+    private javax.swing.JTextField jtPerfilArea;
+    private javax.swing.JTextField jtPerfilID;
+    private javax.swing.JTextField jtPerfilNombre;
+    private javax.swing.JTextField jtPerfilSalidas;
     private javax.swing.JProgressBar pbTochoDiametro;
     private javax.swing.JProgressBar pbTochoLargo;
     // End of variables declaration//GEN-END:variables

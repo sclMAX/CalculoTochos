@@ -3,16 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-<<<<<<< HEAD
+            <file>file:/E:/GITHUB/CalculoTochos/CalculoTochos/src/calculotochos/Utils.java</file>
             <file>file:/E:/GITHUB/CalculoTochos/CalculoTochos/src/calculotochos/MainForm.java</file>
-            <file>file:/E:/GITHUB/CalculoTochos/CalculoTochos/src/calculotochos/PerfilesABM.java</file>
-=======
-            <file>file:/E:/DESARROLLOS/GITHUB/CalculoTochos/CalculoTochos/src/calculotochos/PerfilesABM.java</file>
->>>>>>> c0337dd9a29afe7af4506eb79fbe33038b143ca5
-=======
-            <file>file:/E:/DESARROLLOS/GITHUB/CalculoTochos/CalculoTochos/src/calculotochos/PerfilesABM.java</file>
->>>>>>> c0337dd9a29afe7af4506eb79fbe33038b143ca5
+            <file>file:/E:/GITHUB/CalculoTochos/CalculoTochos/src/calculotochos/data/Perfil.java</file>
         </group>
     </open-files>
 </project-private>

@@ -9,11 +9,11 @@ import com.db4o.config.annotations.Indexed;
  */
 public class Perfil {
     @Indexed
-    public String id;
-    public String nombre;
-    public double area;
-    public int largoComercial;
-    public int salidas;
+    private String id;
+    private String nombre;
+    private double area;
+    private int largoComercial;
+    private int salidas;
 
     public Perfil(String id, String nombre, double area, int largoComercial, int salidas) {
         this.id = id;

@@ -1,10 +1,10 @@
 package calculotochos;
 
+
 import calculotochos.data.Perfil;
-import com.db4o.Db4oEmbedded;
-import com.db4o.ObjectContainer;
+import calculotochos.data.PerfilProvider;
 import com.db4o.ObjectSet;
-import com.db4o.query.Query;
+import com.db4o.constraints.UniqueFieldValueConstraintViolationException;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -15,13 +15,20 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Maxi
  */
-public class PerfilesABM extends javax.swing.JFrame {
+public class PerfilesABM extends javax.swing.JDialog {
 
-    private Perfil perfil = null;
-    private ListSelectionModel lsmLista;
+    private Perfil perfil = new Perfil();
+    private Perfil oldperfil = new Perfil();
+    PerfilProvider db = new PerfilProvider();
+    private final ListSelectionModel lsmLista;
+    private final static int stNone = 0, stEdit = 1, stInsert = 2;
+    private int state = stNone;
+    private final MainForm padre;
 
-    public PerfilesABM() {
+    public PerfilesABM(MainForm padre) {
+        super(padre, true);
         initComponents();
+        this.padre = padre;
         lsmLista = jtPerfiles.getSelectionModel();
         lsmLista.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -45,6 +52,23 @@ public class PerfilesABM extends javax.swing.JFrame {
         });
     }
 
+    private void setEditable(boolean e) {
+        jtId.setEditable(e);
+        jtNombre.setEditable(e);
+        jsArea.setEnabled(e);
+        jsLargoComercial.setEnabled(e);
+        jsSalidas.setEnabled(e);
+        btnNuevo.setEnabled(!e);
+        btnCancelar.setEnabled(e);
+        btnGuardar.setEnabled(e);
+        btnBorrar.setEnabled(!e);
+        btnEditar.setEnabled(!e);
+        if(e){
+            jtId.requestFocus();
+        }
+
+    }
+
     private void getData() {
         perfil.setId(jtId.getText());
         perfil.setNombre(jtNombre.getText());
@@ -54,10 +78,6 @@ public class PerfilesABM extends javax.swing.JFrame {
     }
 
     private void setData(Perfil perfil) {
-        if (perfil == null) {
-            perfil = new Perfil("", "", 0, 6050, 1);
-            this.perfil = null;
-        }
         jtId.setText(perfil.getId());
         jtNombre.setText(perfil.getNombre());
         jsArea.setValue(perfil.getArea());
@@ -67,12 +87,13 @@ public class PerfilesABM extends javax.swing.JFrame {
 
     private void fillTable(ObjectSet<Perfil> data) {
         DefaultTableModel dtm = (DefaultTableModel) jtPerfiles.getModel();
+        Perfil cl ;
         dtm.setRowCount(0);
         if (data != null) {
             int filas = data.size();
             jlBuscar.setText(Integer.toString(filas) + " Registros Encontrados.  ");
             while (data.hasNext()) {
-                Perfil cl = new Perfil();
+                
                 cl = data.next();
                 Object[] obj = new Object[4];
                 obj[0] = cl;
@@ -97,8 +118,6 @@ public class PerfilesABM extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollBar1 = new javax.swing.JScrollBar();
-        jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtPerfiles = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -116,22 +135,22 @@ public class PerfilesABM extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jtBuscar = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jlBuscar = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        btnAceptar = new javax.swing.JButton();
 
-        jButton3.setText("jButton3");
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("ABM Perfiles");
+        setType(java.awt.Window.Type.POPUP);
 
         jtPerfiles.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jtPerfiles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Codigo", "Nombre", "Area", "Salidas"
@@ -151,17 +170,24 @@ public class PerfilesABM extends javax.swing.JFrame {
 
         jLabel1.setText("Codigo:");
 
+        jtId.setEditable(false);
+
+        jtNombre.setEditable(false);
+
         jsArea.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), null, Double.valueOf(1000.0d), Double.valueOf(1.0d)));
+        jsArea.setEnabled(false);
 
         jLabel2.setText("Nombre:");
 
         jLabel3.setText("Area (mm2):");
 
         jsLargoComercial.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), null, Integer.valueOf(7000), Integer.valueOf(1)));
+        jsLargoComercial.setEnabled(false);
 
         jLabel4.setText("Largo Comercial (mm):");
 
         jsSalidas.setModel(new javax.swing.SpinnerNumberModel(1, 1, 6, 1));
+        jsSalidas.setEnabled(false);
 
         jLabel5.setText("Cantidad de Salidas:");
 
@@ -196,6 +222,14 @@ public class PerfilesABM extends javax.swing.JFrame {
             }
         });
 
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setEnabled(false);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -225,7 +259,8 @@ public class PerfilesABM extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                             .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -250,12 +285,18 @@ public class PerfilesABM extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jsLargoComercial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(btnBorrar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jsSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCancelar))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jsSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addComponent(btnBorrar)
+                        .addGap(19, 19, 19))))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -287,27 +328,53 @@ public class PerfilesABM extends javax.swing.JFrame {
                 .addComponent(jlBuscar))
         );
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnAceptar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -315,70 +382,67 @@ public class PerfilesABM extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        state = stInsert;
+        setEditable(true);
+        oldperfil = perfil;
         perfil = new Perfil("", "", 0, 6050, 1);
         setData(perfil);
-        btnEditar.setEnabled(false);
-        btnGuardar.setEnabled(true);
-        btnBorrar.setEnabled(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        ObjectContainer con = Db4oEmbedded.openFile("perfiles.db4o");
-        try {
-            getData();
-            con.store(perfil);
-            con.commit();
-        } finally {
-            con.close();
-            btnEditar.setEnabled(true);
-            btnGuardar.setEnabled(false);
+        getData();
+        switch (state) {
+            case stInsert:
+                db.add(perfil);
+                break;
+            case stEdit:
+                db.update(perfil);
+                break;
         }
+        try{
+              db.commit();
+        }catch(UniqueFieldValueConstraintViolationException ex){
+            JOptionPane.showMessageDialog(this, "El codigo de perfil ["+perfil.getId() + 
+                    "] ya existe en la Base de Datos!", "ERROR al guardar...", JOptionPane.WARNING_MESSAGE);
+            db.rollback();
+        }
+        setEditable(false);
+        fillTable(db.search(""));
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        state = stEdit;
+        oldperfil = perfil;
+        setEditable(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        if (perfil != null) {
-            ObjectContainer con = Db4oEmbedded.openFile("perfiles.db4o");
-            try {
-                con.delete(perfil);
-                con.commit();
-                setData(null);
-                ObjectSet<Perfil> result = con.queryByExample(Perfil.class);
-                fillTable(result);
-                
-
-            } finally {
-                con.close();
-                btnEditar.setEnabled(false);
-                btnGuardar.setEnabled(false);
-                btnBorrar.setEnabled(false);
-            }
+        int result;
+        result = JOptionPane.showConfirmDialog(this, "Esta seguro que desea borrar el perfil [" + perfil.getId()+ "]?",
+                "Borrar Perfil...", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(result == JOptionPane.YES_OPTION){
+            db.delete(perfil);
+            db.commit();
+            perfil = new Perfil();
+            setData(perfil);
+            fillTable(db.search(""));
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ObjectContainer con = Db4oEmbedded.openFile("perfiles.db4o");
-        try {
-            ObjectSet<Perfil> result;
-            if (!jtBuscar.getText().equals("")) {
-                result = con.queryByExample(Perfil.class);
-            } else {
-                String consulta = jtBuscar.getText();
-                Query query = con.query();
-                query.constrain(Perfil.class);
-                query.descend("id").constrain(consulta).contains()
-                        .or(query.descend("nombre").constrain(consulta).like());
-
-                result = query.execute();
-            }
-            fillTable(result);
-        } finally {
-            con.close();
-        }
+        fillTable( db.search(jtBuscar.getText().toString()));
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        perfil = oldperfil;
+        setEditable(false);
+        setData(perfil);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+      padre.perfil = perfil;
+      this.dispose();
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,18 +474,19 @@ public class PerfilesABM extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PerfilesABM().setVisible(true);
+                new PerfilesABM(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -429,7 +494,7 @@ public class PerfilesABM extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollBar jScrollBar1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlBuscar;
     private javax.swing.JSpinner jsArea;

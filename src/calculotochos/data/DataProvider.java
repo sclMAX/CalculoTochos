@@ -36,4 +36,10 @@ public class DataProvider {
     public ObjectContainer getDB() {
         return this.db;
     }
+    
+    public void closeDB(){
+        if(db != null){
+            db.close();
+        }
+    }
 }
