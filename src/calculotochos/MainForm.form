@@ -322,7 +322,7 @@
         <Component class="javax.swing.JSpinner" name="jtLargoMaxMesa">
           <Properties>
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-              <SpinnerModel initial="38000" maximum="45000" numberType="java.lang.Integer" stepSize="1" type="number"/>
+              <SpinnerModel initial="32000" maximum="37500" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
           </Properties>
         </Component>

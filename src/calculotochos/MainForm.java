@@ -200,7 +200,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel5.setText("Largo maximo de Mesa (mm):");
 
-        jtLargoMaxMesa.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(38000), null, Integer.valueOf(45000), Integer.valueOf(1)));
+        jtLargoMaxMesa.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(32000), null, Integer.valueOf(37500), Integer.valueOf(1)));
 
         jLabel6.setText("Largo del Culotede Tocho (mm):");
 
