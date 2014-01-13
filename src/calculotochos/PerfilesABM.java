@@ -93,13 +93,13 @@ public class PerfilesABM extends javax.swing.JDialog {
             int filas = data.size();
             jlBuscar.setText(Integer.toString(filas) + " Registros Encontrados.  ");
             while (data.hasNext()) {
-                
                 cl = data.next();
-                Object[] obj = new Object[4];
+                Object[] obj = new Object[5];
                 obj[0] = cl;
                 obj[1] = cl.getNombre();
                 obj[2] = cl.getArea();
                 obj[3] = cl.getSalidas();
+                obj[4] = cl.getLargoComercial();
                 dtm.addRow(obj);
             }
         } else {
@@ -147,24 +147,27 @@ public class PerfilesABM extends javax.swing.JDialog {
         setTitle("ABM Perfiles");
         setType(java.awt.Window.Type.POPUP);
 
+        jtPerfiles.setAutoCreateRowSorter(true);
         jtPerfiles.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jtPerfiles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Codigo", "Nombre", "Area", "Salidas"
+                "Codigo", "Nombre", "Area", "Salidas", "Largo Barra"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jtPerfiles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jtPerfiles);
+        jtPerfiles.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
