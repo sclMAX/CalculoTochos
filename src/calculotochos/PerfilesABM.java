@@ -516,6 +516,7 @@ public class PerfilesABM extends javax.swing.JDialog {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new PerfilesABM(null).setVisible(true);
             }

@@ -220,7 +220,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel17.setText("Scrap por estirador y corte (mm):");
 
-        jsTochoEspesorCorte.setModel(new javax.swing.SpinnerNumberModel(2, 1, 6, 1));
+        jsTochoEspesorCorte.setModel(new javax.swing.SpinnerNumberModel(1, 1, 6, 1));
 
         jLabel18.setText("Espesor Corte Tocho (mm):");
 
