@@ -5,6 +5,7 @@ import calculotochos.data.Perfil;
 import calculotochos.data.PerfilProvider;
 import com.db4o.ObjectSet;
 import com.db4o.constraints.UniqueFieldValueConstraintViolationException;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -58,6 +59,7 @@ public class PerfilesABM extends javax.swing.JDialog {
         jsArea.setEnabled(e);
         jsLargoComercial.setEnabled(e);
         jsSalidas.setEnabled(e);
+        jsMedidaTocho.setEnabled(e);
         btnNuevo.setEnabled(!e);
         btnCancelar.setEnabled(e);
         btnGuardar.setEnabled(e);
@@ -75,6 +77,7 @@ public class PerfilesABM extends javax.swing.JDialog {
         perfil.setArea((double) jsArea.getValue());
         perfil.setLargoComercial((int) jsLargoComercial.getValue());
         perfil.setSalidas((int) jsSalidas.getValue());
+        perfil.setTochoMedida((int)jsMedidaTocho.getValue());
     }
 
     private void setData(Perfil perfil) {
@@ -83,6 +86,7 @@ public class PerfilesABM extends javax.swing.JDialog {
         jsArea.setValue(perfil.getArea());
         jsLargoComercial.setValue(perfil.getLargoComercial());
         jsSalidas.setValue(perfil.getSalidas());
+        jsMedidaTocho.setValue(perfil.getTochoMedida());
     }
 
     private void fillTable(ObjectSet<Perfil> data) {
@@ -94,12 +98,13 @@ public class PerfilesABM extends javax.swing.JDialog {
             jlBuscar.setText(Integer.toString(filas) + " Registros Encontrados.  ");
             while (data.hasNext()) {
                 cl = data.next();
-                Object[] obj = new Object[5];
+                Object[] obj = new Object[6];
                 obj[0] = cl;
                 obj[1] = cl.getNombre();
                 obj[2] = cl.getArea();
                 obj[3] = cl.getSalidas();
                 obj[4] = cl.getLargoComercial();
+                obj[5] = cl.getTochoMedida();
                 dtm.addRow(obj);
             }
         } else {
@@ -136,9 +141,11 @@ public class PerfilesABM extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jsMedidaTocho = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         jtBuscar = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         jlBuscar = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnAceptar = new javax.swing.JButton();
@@ -146,6 +153,11 @@ public class PerfilesABM extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ABM Perfiles");
         setType(java.awt.Window.Type.POPUP);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jtPerfiles.setAutoCreateRowSorter(true);
         jtPerfiles.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -154,11 +166,11 @@ public class PerfilesABM extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Codigo", "Nombre", "Area", "Salidas", "Largo Barra"
+                "Codigo", "Nombre", "Area", "Salidas", "Largo Barra", "Medida Tocho"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -167,7 +179,6 @@ public class PerfilesABM extends javax.swing.JDialog {
         });
         jtPerfiles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jtPerfiles);
-        jtPerfiles.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -233,6 +244,11 @@ public class PerfilesABM extends javax.swing.JDialog {
             }
         });
 
+        jLabel6.setText("Medida Tocho:");
+
+        jsMedidaTocho.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), null, Integer.valueOf(600), Integer.valueOf(1)));
+        jsMedidaTocho.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -244,7 +260,8 @@ public class PerfilesABM extends javax.swing.JDialog {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -257,8 +274,9 @@ public class PerfilesABM extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jsSalidas, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jsLargoComercial, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jsArea, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jsArea, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                                .addComponent(jsMedidaTocho, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                             .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -295,19 +313,29 @@ public class PerfilesABM extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jsSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jsMedidaTocho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addContainerGap(22, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBorrar)
                         .addGap(19, 19, 19))))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtBuscarKeyPressed(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -318,7 +346,7 @@ public class PerfilesABM extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -327,7 +355,7 @@ public class PerfilesABM extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jButton1)
+                .addComponent(btnBuscar)
                 .addComponent(jlBuscar))
         );
 
@@ -375,7 +403,7 @@ public class PerfilesABM extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -432,9 +460,9 @@ public class PerfilesABM extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         fillTable( db.search(jtBuscar.getText().toString()));
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         perfil = oldperfil;
@@ -446,6 +474,18 @@ public class PerfilesABM extends javax.swing.JDialog {
       padre.perfil = perfil;
       this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        if(db != null){
+            db.closeDB();
+        }
+    }//GEN-LAST:event_formWindowClosed
+
+    private void jtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscarKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.btnBuscarActionPerformed(null);
+        }
+    }//GEN-LAST:event_jtBuscarKeyPressed
 
     /**
      * @param args the command line arguments
@@ -481,20 +521,21 @@ public class PerfilesABM extends javax.swing.JDialog {
             }
         });
     }
-
+// <editor-fold defaultstate="collapsed" desc=" Variables autogeneradas ">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -502,10 +543,12 @@ public class PerfilesABM extends javax.swing.JDialog {
     private javax.swing.JLabel jlBuscar;
     private javax.swing.JSpinner jsArea;
     private javax.swing.JSpinner jsLargoComercial;
+    private javax.swing.JSpinner jsMedidaTocho;
     private javax.swing.JSpinner jsSalidas;
     private javax.swing.JTextField jtBuscar;
     private javax.swing.JTextField jtId;
     private javax.swing.JTextField jtNombre;
     private javax.swing.JTable jtPerfiles;
     // End of variables declaration//GEN-END:variables
+//</editor-fold>
 }

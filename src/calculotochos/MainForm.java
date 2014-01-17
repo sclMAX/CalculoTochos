@@ -573,10 +573,10 @@ public class MainForm extends javax.swing.JFrame {
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
         if (perfil != null) {
             getData();
-            double tochoArea = 0.000;
-            double tochoPesoXmm = 0.000;
-            double contenedorArea = 0.000;
-            double culotePeso = 0.000;
+            double tochoArea;
+            double tochoPesoXmm;
+            double contenedorArea;
+            double culotePeso;
             int barrasMesa;
             int barraProduccion;
 
@@ -594,11 +594,11 @@ public class MainForm extends javax.swing.JFrame {
                 barrasMesa--;
                 barraProduccion = barrasMesa * perfil.getLargoComercial() + scrapEstirador;
             }
-            double pesoBarraProduccion = Utils.calcularPeso(barraProduccion, perfil.getArea()) * perfil.getSalidas();
+            double pesoBarraProduccion = (perfil.getPeso(barraProduccion)) * perfil.getSalidas();
             tochoCorte = (int) ((pesoBarraProduccion + culotePeso) / tochoPesoXmm);
             //Mostrando Resultados
-            jlCulotePeso.setText(Utils.round(culotePeso,3));
-            jlPerfilPesoXm.setText(Utils.round(perfil.getPeso(1000),3));
+            jlCulotePeso.setText(Utils.round(culotePeso, 3));
+            jlPerfilPesoXm.setText(Utils.round(perfil.getPeso(1000), 3));
             jlSobranteTocho.setText(Integer.toString(tochoLargo - (((int) (tochoLargo / tochoCorte)) * (tochoCorte + tochoEspesorCorte))));
             jlLargoTocho.setText(Integer.toString(tochoCorte));
             jlBarrasTocho.setText(Integer.toString(barrasMesa * perfil.getSalidas()));
@@ -606,7 +606,6 @@ public class MainForm extends javax.swing.JFrame {
             jlBarrasSalida.setText(Integer.toString(barrasMesa));
             jlPesoBarra.setText(Utils.round(perfil.getPeso(perfil.getLargoComercial()) / 1000, 3));
         }
-
     }//GEN-LAST:event_btnCalcularActionPerformed
 
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
@@ -671,7 +670,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
     }
-
+// <editor-fold defaultstate="collapsed" desc=" Variables autogeneradas ">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcular;
     private javax.swing.JButton btnPerfil;
@@ -730,4 +729,5 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JProgressBar pbTochoDiametro;
     private javax.swing.JProgressBar pbTochoLargo;
     // End of variables declaration//GEN-END:variables
+//</editor-fold>
 }
