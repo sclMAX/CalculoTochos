@@ -75,6 +75,8 @@ public class MainForm extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jtPerfilLargoComercial = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jtPerfilLargoTocho = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         btnCalcular = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
@@ -318,6 +320,10 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel23.setText("Largo Comercial");
 
+        jLabel24.setText("Largo Tocho");
+
+        jtPerfilLargoTocho.setEditable(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -329,6 +335,10 @@ public class MainForm extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jtPerfilLargoComercial))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jtPerfilLargoTocho, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnPerfil))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -367,11 +377,17 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jtPerfilArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtPerfilSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtPerfilLargoComercial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPerfil))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel23)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtPerfilLargoComercial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPerfil)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtPerfilLargoTocho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10))
         );
 
@@ -621,6 +637,7 @@ public class MainForm extends javax.swing.JFrame {
         jtPerfilArea.setText(Double.toString(perfil.getArea()));
         jtPerfilSalidas.setText(Integer.toString(perfil.getSalidas()));
         jtPerfilLargoComercial.setText(Integer.toString(perfil.getLargoComercial()));
+        jtPerfilLargoTocho.setText(Integer.toString(perfil.getTochoMedida()));
     }
 
     private void getData() {
@@ -690,6 +707,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -724,6 +742,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTextField jtPerfilArea;
     private javax.swing.JTextField jtPerfilID;
     private javax.swing.JTextField jtPerfilLargoComercial;
+    private javax.swing.JTextField jtPerfilLargoTocho;
     private javax.swing.JTextField jtPerfilNombre;
     private javax.swing.JTextField jtPerfilSalidas;
     private javax.swing.JProgressBar pbTochoDiametro;
