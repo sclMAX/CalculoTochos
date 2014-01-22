@@ -208,7 +208,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel6.setText("Largo del Culotede Tocho (mm):");
 
-        jsCulote.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(15), null, Integer.valueOf(50), Integer.valueOf(1)));
+        jsCulote.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(20), null, Integer.valueOf(50), Integer.valueOf(1)));
 
         jLabel11.setText("Diametro del Contenedor (mm):");
 
@@ -218,7 +218,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jsDistanciaMatrizSierra.setModel(new javax.swing.SpinnerNumberModel(6750, 6000, 10000, 1));
 
-        jsScrapEstirador.setModel(new javax.swing.SpinnerNumberModel(0, 0, 3000, 1));
+        jsScrapEstirador.setModel(new javax.swing.SpinnerNumberModel(600, 0, 3000, 1));
 
         jLabel17.setText("Scrap por estirador y corte (mm):");
 

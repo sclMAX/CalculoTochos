@@ -177,7 +177,7 @@ public class PerfilesABM extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jtPerfiles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jtPerfiles.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         jScrollPane1.setViewportView(jtPerfiles);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
