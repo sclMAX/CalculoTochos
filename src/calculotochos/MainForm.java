@@ -20,6 +20,7 @@ public class MainForm extends javax.swing.JFrame {
     private int scrapEstirador;
     private int tochoCorte = 0;
     private int tochoEspesorCorte;
+    private int perfilAjuste;
 
     /**
      * Creates new form MainForm
@@ -63,6 +64,8 @@ public class MainForm extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jsTochoEspesorCorte = new javax.swing.JSpinner();
         jLabel18 = new javax.swing.JLabel();
+        jsPerfilAjuste = new javax.swing.JSpinner();
+        jLabel25 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnPerfil = new javax.swing.JButton();
         jtPerfilID = new javax.swing.JTextField();
@@ -226,23 +229,29 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel18.setText("Espesor Corte Tocho (mm):");
 
+        jsPerfilAjuste.setModel(new javax.swing.SpinnerNumberModel(0, 0, 6000, 1));
+
+        jLabel25.setText("Ajuste (mm):");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel25))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jsPerfilAjuste)
                     .addComponent(jsScrapEstirador)
                     .addComponent(jsDistanciaMatrizSierra)
                     .addComponent(jsCulote)
@@ -288,7 +297,11 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jsTochoEspesorCorte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jsPerfilAjuste, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25))
+                .addContainerGap())
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propiedades de la Matriz", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
@@ -377,17 +390,14 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jtPerfilArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtPerfilSalidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel23)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtPerfilLargoComercial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnPerfil)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtPerfilLargoTocho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel24))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtPerfilLargoComercial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPerfil)
+                    .addComponent(jtPerfilLargoTocho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
 
@@ -523,7 +533,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel20)
                             .addComponent(jlBarrasSalida))))
-                .addGap(0, 63, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -610,7 +620,7 @@ public class MainForm extends javax.swing.JFrame {
                 barrasMesa--;
                 barraProduccion = barrasMesa * perfil.getLargoComercial() + scrapEstirador;
             }
-            double pesoBarraProduccion = (perfil.getPeso(barraProduccion)) * perfil.getSalidas();
+            double pesoBarraProduccion = (perfil.getPeso(barraProduccion + perfilAjuste)) * perfil.getSalidas();
             tochoCorte = (int) ((pesoBarraProduccion + culotePeso) / tochoPesoXmm);
             //Mostrando Resultados
             jlCulotePeso.setText(Utils.round(culotePeso, 3));
@@ -651,6 +661,8 @@ public class MainForm extends javax.swing.JFrame {
         culoteLargo = (int) jsCulote.getValue();
         scrapEstirador = (int) jsScrapEstirador.getValue();
         tochoEspesorCorte = (int) jsTochoEspesorCorte.getValue();
+        perfilAjuste = (int) jsPerfilAjuste.getValue();
+        
     }
 
     /**
@@ -708,6 +720,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -730,6 +743,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JSpinner jsContenedorDiametro;
     private javax.swing.JSpinner jsCulote;
     private javax.swing.JSpinner jsDistanciaMatrizSierra;
+    private javax.swing.JSpinner jsPerfilAjuste;
     private javax.swing.JSpinner jsScrapEstirador;
     private javax.swing.JSlider jsTochoDiametro;
     private javax.swing.JSpinner jsTochoEspesorCorte;

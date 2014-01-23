@@ -59,7 +59,8 @@ public class PerfilesABM extends javax.swing.JDialog {
         jsArea.setEnabled(e);
         jsLargoComercial.setEnabled(e);
         jsSalidas.setEnabled(e);
-        jsMedidaTocho.setEnabled(e);
+        jsTochoMedida.setEnabled(e);
+        jsTochoTemperatura.setEnabled(e);
         btnNuevo.setEnabled(!e);
         btnCancelar.setEnabled(e);
         btnGuardar.setEnabled(e);
@@ -77,7 +78,8 @@ public class PerfilesABM extends javax.swing.JDialog {
         perfil.setArea((double) jsArea.getValue());
         perfil.setLargoComercial((int) jsLargoComercial.getValue());
         perfil.setSalidas((int) jsSalidas.getValue());
-        perfil.setTochoMedida((int)jsMedidaTocho.getValue());
+        perfil.setTochoMedida((int)jsTochoMedida.getValue());
+        perfil.setTochoTemperatura((int)jsTochoTemperatura.getValue());
     }
 
     private void setData(Perfil perfil) {
@@ -86,7 +88,8 @@ public class PerfilesABM extends javax.swing.JDialog {
         jsArea.setValue(perfil.getArea());
         jsLargoComercial.setValue(perfil.getLargoComercial());
         jsSalidas.setValue(perfil.getSalidas());
-        jsMedidaTocho.setValue(perfil.getTochoMedida());
+        jsTochoMedida.setValue(perfil.getTochoMedida());
+        jsTochoTemperatura.setValue(perfil.getTochoTemperatura());
     }
 
     private void fillTable(ObjectSet<Perfil> data) {
@@ -98,13 +101,14 @@ public class PerfilesABM extends javax.swing.JDialog {
             jlBuscar.setText(Integer.toString(filas) + " Registros Encontrados.  ");
             while (data.hasNext()) {
                 cl = data.next();
-                Object[] obj = new Object[6];
+                Object[] obj = new Object[7];
                 obj[0] = cl;
                 obj[1] = cl.getNombre();
                 obj[2] = cl.getArea();
                 obj[3] = cl.getSalidas();
                 obj[4] = cl.getLargoComercial();
                 obj[5] = cl.getTochoMedida();
+                obj[6] = cl.getTochoTemperatura();
                 dtm.addRow(obj);
             }
         } else {
@@ -123,6 +127,7 @@ public class PerfilesABM extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jProgressBar1 = new javax.swing.JProgressBar();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtPerfiles = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -142,7 +147,9 @@ public class PerfilesABM extends javax.swing.JDialog {
         btnBorrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jsMedidaTocho = new javax.swing.JSpinner();
+        jsTochoMedida = new javax.swing.JSpinner();
+        jLabel7 = new javax.swing.JLabel();
+        jsTochoTemperatura = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         jtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
@@ -166,11 +173,11 @@ public class PerfilesABM extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Codigo", "Nombre", "Area", "Salidas", "Largo Barra", "Medida Tocho"
+                "Codigo", "Nombre", "Area", "Salidas", "Largo Barra", "Medida Tocho", "Temperatura Tocho"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -246,8 +253,13 @@ public class PerfilesABM extends javax.swing.JDialog {
 
         jLabel6.setText("Medida Tocho:");
 
-        jsMedidaTocho.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), null, Integer.valueOf(600), Integer.valueOf(1)));
-        jsMedidaTocho.setEnabled(false);
+        jsTochoMedida.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), null, Integer.valueOf(600), Integer.valueOf(1)));
+        jsTochoMedida.setEnabled(false);
+
+        jLabel7.setText("Temperatura Tocho:");
+
+        jsTochoTemperatura.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(400), null, Integer.valueOf(600), Integer.valueOf(1)));
+        jsTochoTemperatura.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -269,14 +281,19 @@ public class PerfilesABM extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jsSalidas, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jsLargoComercial, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jsArea, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                                .addComponent(jsMedidaTocho, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jsSalidas, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jsLargoComercial, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jsArea, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                                    .addComponent(jsTochoMedida, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jsTochoTemperatura, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtNombre))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                             .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -301,7 +318,10 @@ public class PerfilesABM extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jsArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(btnGuardar))
+                    .addComponent(btnGuardar)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jsTochoTemperatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jsLargoComercial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -315,7 +335,7 @@ public class PerfilesABM extends javax.swing.JDialog {
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jsMedidaTocho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jsTochoMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addContainerGap(22, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -389,7 +409,7 @@ public class PerfilesABM extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -537,15 +557,18 @@ public class PerfilesABM extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlBuscar;
     private javax.swing.JSpinner jsArea;
     private javax.swing.JSpinner jsLargoComercial;
-    private javax.swing.JSpinner jsMedidaTocho;
     private javax.swing.JSpinner jsSalidas;
+    private javax.swing.JSpinner jsTochoMedida;
+    private javax.swing.JSpinner jsTochoTemperatura;
     private javax.swing.JTextField jtBuscar;
     private javax.swing.JTextField jtId;
     private javax.swing.JTextField jtNombre;
