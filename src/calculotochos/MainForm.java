@@ -100,11 +100,12 @@ public class MainForm extends javax.swing.JFrame {
         jlPesoBarra = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Calculo de Corte de Tochos v1.0 by MAX");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("calculotochos/Bundle"); // NOI18N
+        setTitle(bundle.getString("CALCULO DE CORTE DE TOCHOS V1.0 BY MAX")); // NOI18N
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propiedades del Tocho", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        jLabel1.setText("Diametro (mm):");
+        jLabel1.setText(bundle.getString("DIAMETRO (MM):")); // NOI18N
 
         jsTochoDiametro.setMaximum(300);
         jsTochoDiametro.setValue(152);
@@ -126,7 +127,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Largo (mm):");
+        jLabel2.setText(bundle.getString("LARGO (MM):")); // NOI18N
 
         jsTochoLargo.setMaximum(6000);
         jsTochoLargo.setToolTipText("");
@@ -197,41 +198,41 @@ public class MainForm extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propiedades de la Planta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        jLabel3.setText("Largo maximo del Tocho (mm):");
+        jLabel3.setText(bundle.getString("LARGO MAXIMO DEL TOCHO (MM):")); // NOI18N
 
         jtLargoMaxTocho.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(600), null, Integer.valueOf(600), Integer.valueOf(1)));
 
         jtLargoMinTocho.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(400), null, Integer.valueOf(600), Integer.valueOf(1)));
 
-        jLabel4.setText("Largo minimo del Tocho (mm):");
+        jLabel4.setText(bundle.getString("LARGO MINIMO DEL TOCHO (MM):")); // NOI18N
 
-        jLabel5.setText("Largo maximo de Mesa (mm):");
+        jLabel5.setText(bundle.getString("LARGO MAXIMO DE MESA (MM):")); // NOI18N
 
         jtLargoMaxMesa.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(32000), null, Integer.valueOf(37500), Integer.valueOf(1)));
 
-        jLabel6.setText("Largo del Culotede Tocho (mm):");
+        jLabel6.setText(bundle.getString("LARGO DEL CULOTEDE TOCHO (MM):")); // NOI18N
 
         jsCulote.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(20), null, Integer.valueOf(50), Integer.valueOf(1)));
 
-        jLabel11.setText("Diametro del Contenedor (mm):");
+        jLabel11.setText(bundle.getString("DIAMETRO DEL CONTENEDOR (MM):")); // NOI18N
 
         jsContenedorDiametro.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(159), null, Integer.valueOf(300), Integer.valueOf(1)));
 
-        jLabel10.setText("Distancia Matriz Corte (mm):");
+        jLabel10.setText(bundle.getString("DISTANCIA MATRIZ CORTE (MM):")); // NOI18N
 
         jsDistanciaMatrizSierra.setModel(new javax.swing.SpinnerNumberModel(6750, 6000, 10000, 1));
 
         jsScrapEstirador.setModel(new javax.swing.SpinnerNumberModel(600, 0, 3000, 1));
 
-        jLabel17.setText("Scrap por estirador y corte (mm):");
+        jLabel17.setText(bundle.getString("SCRAP POR ESTIRADOR Y CORTE (MM):")); // NOI18N
 
         jsTochoEspesorCorte.setModel(new javax.swing.SpinnerNumberModel(1, 1, 6, 1));
 
-        jLabel18.setText("Espesor Corte Tocho (mm):");
+        jLabel18.setText(bundle.getString("ESPESOR CORTE TOCHO (MM):")); // NOI18N
 
-        jsPerfilAjuste.setModel(new javax.swing.SpinnerNumberModel(0, 0, 6000, 1));
+        jsPerfilAjuste.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), null, Integer.valueOf(6000), Integer.valueOf(1)));
 
-        jLabel25.setText("Ajuste (mm):");
+        jLabel25.setText(bundle.getString("AJUSTE (MM):")); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -306,7 +307,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propiedades de la Matriz", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        btnPerfil.setText("Buscar");
+        btnPerfil.setText(bundle.getString("BUSCAR")); // NOI18N
         btnPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPerfilActionPerformed(evt);
@@ -321,19 +322,19 @@ public class MainForm extends javax.swing.JFrame {
 
         jtPerfilSalidas.setEditable(false);
 
-        jLabel7.setText("Codigo");
+        jLabel7.setText(bundle.getString("CODIGO")); // NOI18N
 
-        jLabel8.setText("Nombre");
+        jLabel8.setText(bundle.getString("NOMBRE")); // NOI18N
 
-        jLabel9.setText("Area");
+        jLabel9.setText(bundle.getString("AREA")); // NOI18N
 
-        jLabel21.setText("Salidas");
+        jLabel21.setText(bundle.getString("SALIDAS")); // NOI18N
 
         jtPerfilLargoComercial.setEditable(false);
 
-        jLabel23.setText("Largo Comercial");
+        jLabel23.setText(bundle.getString("LARGO COMERCIAL")); // NOI18N
 
-        jLabel24.setText("Largo Tocho");
+        jLabel24.setText(bundle.getString("LARGO TOCHO")); // NOI18N
 
         jtPerfilLargoTocho.setEditable(false);
 
@@ -403,60 +404,60 @@ public class MainForm extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Calculos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        btnCalcular.setText("Calcular");
+        btnCalcular.setText(bundle.getString("CALCULAR")); // NOI18N
         btnCalcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCalcularActionPerformed(evt);
             }
         });
 
-        jLabel12.setText("Largo de Tocho (mm):");
+        jLabel12.setText(bundle.getString("LARGO DE TOCHO (MM):")); // NOI18N
 
         jlLargoTocho.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlLargoTocho.setForeground(new java.awt.Color(0, 102, 255));
-        jlLargoTocho.setText("0");
+        jlLargoTocho.setText(bundle.getString("0")); // NOI18N
 
         jlBarrasTocho.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlBarrasTocho.setForeground(new java.awt.Color(0, 102, 255));
-        jlBarrasTocho.setText("0");
+        jlBarrasTocho.setText(bundle.getString("0")); // NOI18N
 
-        jLabel13.setText("Total de Barras por Tocho:");
+        jLabel13.setText(bundle.getString("TOTAL DE BARRAS POR TOCHO:")); // NOI18N
 
         jlSobranteTocho.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlSobranteTocho.setForeground(new java.awt.Color(255, 102, 102));
-        jlSobranteTocho.setText("0");
+        jlSobranteTocho.setText(bundle.getString("0")); // NOI18N
 
-        jLabel14.setText("Sobrante Corte Barra Tocho (mm):");
+        jLabel14.setText(bundle.getString("SOBRANTE CORTE BARRA TOCHO (MM):")); // NOI18N
 
-        jLabel15.setText("Desperdicio Culote (gr):");
+        jLabel15.setText(bundle.getString("DESPERDICIO CULOTE (GR):")); // NOI18N
 
         jlCulotePeso.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlCulotePeso.setForeground(new java.awt.Color(255, 102, 102));
-        jlCulotePeso.setText("0");
+        jlCulotePeso.setText(bundle.getString("0")); // NOI18N
 
-        jLabel16.setText("Peso del Perfil (gr/m):");
+        jLabel16.setText(bundle.getString("PESO DEL PERFIL (GR/M):")); // NOI18N
 
         jlPerfilPesoXm.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlPerfilPesoXm.setForeground(new java.awt.Color(0, 102, 255));
-        jlPerfilPesoXm.setText("0");
+        jlPerfilPesoXm.setText(bundle.getString("0")); // NOI18N
 
-        jLabel19.setText("Cantidad de Tochos por Barra:");
+        jLabel19.setText(bundle.getString("CANTIDAD DE TOCHOS POR BARRA:")); // NOI18N
 
         jlTochosBarra.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlTochosBarra.setForeground(new java.awt.Color(0, 102, 255));
-        jlTochosBarra.setText("0");
+        jlTochosBarra.setText(bundle.getString("0")); // NOI18N
 
-        jLabel20.setText("Total Barras por Salida:");
+        jLabel20.setText(bundle.getString("TOTAL BARRAS POR SALIDA:")); // NOI18N
 
         jlBarrasSalida.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlBarrasSalida.setForeground(new java.awt.Color(0, 102, 255));
-        jlBarrasSalida.setText("0");
+        jlBarrasSalida.setText(bundle.getString("0")); // NOI18N
 
-        jLabel22.setText("Peso por Barra (Kg.):");
+        jLabel22.setText(bundle.getString("PESO POR BARRA (KG.):")); // NOI18N
 
         jlPesoBarra.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlPesoBarra.setForeground(new java.awt.Color(0, 102, 255));
-        jlPesoBarra.setText("0");
+        jlPesoBarra.setText(bundle.getString("0")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -676,7 +677,7 @@ public class MainForm extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if (java.util.ResourceBundle.getBundle("calculotochos/Bundle").getString("NIMBUS").equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
