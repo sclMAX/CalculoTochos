@@ -212,7 +212,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel6.setText(bundle.getString("LARGO DEL CULOTEDE TOCHO (MM):")); // NOI18N
 
-        jsCulote.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(20), null, Integer.valueOf(50), Integer.valueOf(1)));
+        jsCulote.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(20), null, Integer.valueOf(2000), Integer.valueOf(1)));
 
         jLabel11.setText(bundle.getString("DIAMETRO DEL CONTENEDOR (MM):")); // NOI18N
 
