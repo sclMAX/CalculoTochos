@@ -1,5 +1,6 @@
 package calculotochos.data;
 
+import calculotochos.Utils;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.constraints.UniqueFieldValueConstraintViolationException;
@@ -11,6 +12,7 @@ import com.db4o.ext.IncompatibleFileFormatException;
 import com.db4o.ext.OldFormatException;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -27,10 +29,12 @@ public class PerfilProvider {
     }
 
     public void add(Perfil data) throws DatabaseClosedException, DatabaseReadOnlyException {
+        data.setFua(Utils.getDate());
         db.store(data);
     }
 
     public void update(Perfil data) throws DatabaseClosedException, DatabaseReadOnlyException {
+        data.setFua(Utils.getDate());
         db.store(data);
     }
 

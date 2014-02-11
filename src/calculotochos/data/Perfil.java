@@ -11,12 +11,13 @@ public class Perfil {
 
     @Indexed
     private String id;
-    public String nombre;
-    public double area;
-    public int largoComercial;
-    public int salidas;
-    public int tochoMedida;
-    public int tochoTemperatura;
+    private String nombre;
+    private double area;
+    private int largoComercial;
+    private int salidas;
+    private int tochoMedida;
+    private int tochoTemperatura;
+    private String fua;
 
     public Perfil(String id, String nombre, double area, int largoComercial, int salidas) {
         this.id = id;
@@ -135,6 +136,14 @@ public class Perfil {
      */
     public void setTochoTemperatura(int tochoTemperatura) {
         this.tochoTemperatura = tochoTemperatura;
+    }
+
+    public String getFua() {
+        return fua;
+    }
+
+    public void setFua(String fua) {
+        this.fua = fua;
     }
 
     //</editor-fold>

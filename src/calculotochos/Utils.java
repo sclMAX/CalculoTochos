@@ -1,6 +1,8 @@
 package calculotochos;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -26,5 +28,11 @@ public class Utils {
 
     public static double calcularPeso(int largo, double area) {
         return area * largo * DEN_AL_6063;
+    }
+    
+    public static String getDate(){
+        Date d = new Date();
+        SimpleDateFormat dtf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        return dtf.format(d);
     }
 }
