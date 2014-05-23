@@ -1,8 +1,12 @@
 package calculotochos;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -34,5 +38,15 @@ public class Utils {
         Date d = new Date();
         SimpleDateFormat dtf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         return dtf.format(d);
+    }
+    
+    public static Image iconToImage(Icon icon) {
+        if (icon instanceof ImageIcon) {
+            return ((ImageIcon) icon).getImage();
+        } else {
+            BufferedImage image = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+            icon.paintIcon(null, image.getGraphics(), 0, 0);
+            return image;
+        }
     }
 }
